@@ -14,4 +14,4 @@ for (let i = 0; i < tempF.length; i++) {
     promedio += tempF[i];
 }
 promedio = (promedio/tempF.length -32) * (5/9);
-console.log(promedio)
+console.log(promedio) // resultado 12.40 grados celsius
