@@ -5,6 +5,7 @@
 // el usuario gane una jugada y la computadora la otra.
 // ● Mejor de 3: quien gane 3 o 2 jugadas será el ganador, etc.
 
+// Funcion que permite elegir la cantidad de rondas que se desea jugar: 1, 2 o 3 rondas.
 function cantidadDeJugadas() {
     let askAgain = true;
     let numeroDeJugadas = 0;
@@ -33,10 +34,11 @@ function cantidadDeJugadas() {
     return numeroDeJugadas;    
 };
 
+// Funcion que elegi un valor random entre 0 y 2.
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
-
+// Funcion que de acuerdo al numero que se obtenga de la funcion anterior asociada un tipo de jugada.
 function obtenerJugadaComputadora() {
     let jugadaComputadora = getRandomInt();
     if (jugadaComputadora === 0) {
@@ -48,6 +50,7 @@ function obtenerJugadaComputadora() {
     }
 };
 
+// Funcion que pregunta al usuario que ingrese un tipo de jugada, es decir, que elija entre piedra, papel o tijera.
 function obtenerJugadaUsuario() {
     let preguntarDeNuevo = true;
     let jugadaUsuario = '';
@@ -70,6 +73,7 @@ function obtenerJugadaUsuario() {
     return jugadaUsuario;                    
 };      
 
+// Funcion que determina ganador en funcion de las jugadas de la computadora y del usuario.
 function determinarGanador(jugadaUsuario, jugadaComputadora) {
     let resultado;
     if (((jugadaUsuario === 'piedra') && (jugadaComputadora === 'tijera')) || 
@@ -85,6 +89,7 @@ function determinarGanador(jugadaUsuario, jugadaComputadora) {
         }
 };
 
+// Funcon que imprime por consula resultados.
 function mensajeResultado(jugadaComputadora, jugadaUsuario, resultadoGanador) {
     console.log(`La computadora eligio: ${jugadaComputadora}.`);
     console.log(`El usuario eligio: ${jugadaUsuario}.`);
@@ -99,18 +104,7 @@ let mensaje = mensajeResultado(jugadaComputadora, jugadaUsuario, resultadoGanado
 
 //CANTIDAD DE PARTIDAS
 
-
-
-function rondas(jugadas) {
-    if (jugadas === 1) {
-        return unaRonda;
-    } else if (jugadas === 2) {
-        return dosRondas;
-    } else {
-        return tresJugadas(jugadas);
-    }
-}
-
+// Funcion de una ronda.
 function unaJugada(jugadas) {
     if(jugadas === 1) {
         return mensaje;
@@ -119,8 +113,7 @@ function unaJugada(jugadas) {
 
 let unaRonda = unaJugada(jugadas);
 
-
-
+// Funcion de dos rondas.
 function dosJugadas(jugadas) {
     let jugadasComputadora = [];
     let jugadasUsuario = [];
@@ -152,6 +145,7 @@ function dosJugadas(jugadas) {
 
 let dosRondas = dosJugadas(jugadas);
 
+// Funcion de 3 rondas.
 function tresJugadas(jugadas) {
     let jugadasComputadora = [];
     let jugadasUsuario = [];
