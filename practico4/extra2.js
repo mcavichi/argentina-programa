@@ -5,6 +5,34 @@
 // el usuario gane una jugada y la computadora la otra.
 // ● Mejor de 3: quien gane 3 o 2 jugadas será el ganador, etc.
 
+function cantidadDeJugadas() {
+    let askAgain = true;
+    let numeroDeJugadas = 0;
+    do {
+    const readlineSync = require('readline-sync');
+    numeroDeJugadas= parseInt((readlineSync.question('Cuantas jugadas deseas? 1, 2 o 3? ')));    
+    } while ((numeroDeJugadas !== 1 && numeroDeJugadas !== 2 && numeroDeJugadas !== 3)) {
+        switch (numeroDeJugadas) {
+            case 1:
+                numeroDeJugadas === '1';
+                console.log(`Has elegido ${numeroDeJugadas} jugada`);
+                break;
+            case 2:
+                numeroDeJugadas === '2';
+                console.log(`Has elegido ${numeroDeJugadas} jugadas`);
+                break;
+            case 3:
+                numeroDeJugadas === '3';
+                console.log(`Has elegido ${numeroDeJugadas} jugadas`)
+                break;
+            default:
+                console.log('El número de jugadas debe ser uno entre los valores permitidos.');
+        };
+        askAgain = false;
+    }
+    return numeroDeJugadas;    
+};
+
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
@@ -57,53 +85,41 @@ function determinarGanador(jugadaUsuario, jugadaComputadora) {
         }
 };
 
-function mensajeResultado() {
-    return console.log(`La computadora eligio: ${jugadaComputadora}. El usuario eligio: ${jugadaUsuario}. El resultado fue: ${resultadoGanador}.`);
-}
+function mensajeResultado(jugadaComputadora, jugadaUsuario, resultadoGanador) {
+    console.log(`La computadora eligio: ${jugadaComputadora}.`);
+    console.log(`El usuario eligio: ${jugadaUsuario}.`);
+    console.log(`El resultado fue: ${resultadoGanador}.`);
+};
 
 let jugadas = cantidadDeJugadas();
 let jugadaComputadora = obtenerJugadaComputadora();
 let jugadaUsuario = obtenerJugadaUsuario();
 let resultadoGanador = determinarGanador(jugadaUsuario, jugadaComputadora);
-let mensaje = mensajeResultado();
+let mensaje = mensajeResultado(jugadaComputadora, jugadaUsuario, resultadoGanador);
 
 //CANTIDAD DE PARTIDAS
 
-function cantidadDeJugadas() {
-    let askAgain = true;
-    let numeroDeJugadas = 0;
-    do {
-    const readlineSync = require('readline-sync');
-    numeroDeJugadas= parseInt((readlineSync.question('Cuantas jugadas deseas? 1, 2 o 3? ')));    
-    } while ((numeroDeJugadas !== 1 && numeroDeJugadas !== 2 && numeroDeJugadas !== 3)) {
-        switch (numeroDeJugadas) {
-            case 1:
-                numeroDeJugadas === '1';
-                console.log(`Has elegido ${numeroDeJugadas} jugada`);
-                break;
-            case 2:
-                numeroDeJugadas === '2';
-                console.log(`Has elegido ${numeroDeJugadas} jugadas`);
-                break;
-            case 3:
-                numeroDeJugadas === '3';
-                console.log(`Has elegido ${numeroDeJugadas} jugadas`)
-                break;
-            default:
-                console.log('El número de jugadas debe ser uno entre los valores permitidos.');
-        };
-        askAgain = false;
+
+
+function rondas(jugadas) {
+    if (jugadas === 1) {
+        return unaRonda;
+    } else if (jugadas === 2) {
+        return dosRondas;
+    } else {
+        return tresJugadas(jugadas);
     }
-    return numeroDeJugadas;    
-};
+}
 
 function unaJugada(jugadas) {
     if(jugadas === 1) {
-        return resultadoGanador;
+        return mensaje;
     };
 };
 
-unaJugada(jugadas);
+let unaRonda = unaJugada(jugadas);
+
+
 
 function dosJugadas(jugadas) {
     let jugadasComputadora = [];
@@ -111,21 +127,53 @@ function dosJugadas(jugadas) {
     if(jugadas === 2) {
         jugadasComputadora.push(jugadaComputadora);
         jugadasUsuario.push(jugadaUsuario);
-        // console.log('La computadora jugo: ' + jugadasComputadora[0] + '.');
-        // console.log('El usuario jugo: ' + jugadasUsuario[0] + '.');
-        jugadasComputadora.push(jugadaComputadora);
+        jugadasComputadora.push(obtenerJugadaComputadora());
         jugadasUsuario.push(obtenerJugadaUsuario());
-        // console.log('La computadora jugo: ' + jugadasComputadora[1] + '.');
-        // console.log('El usuario jugo: ' + jugadasUsuario[1] + '.');
         determinarGanador(jugadasUsuario[1], jugadasComputadora[1]);
         let resultadoGanador = determinarGanador(jugadasUsuario[1], jugadasComputadora[1]);
-        console.log(`La computadora eligio: ${jugadasComputadora[1]}. El usuario eligio: ${jugadasUsuario[1]}. El resultado fue: ${resultadoGanador}.`);
-    };
-    return console.log(jugadasUsuario) + console.log(jugadasComputadora);
-}
+        console.log(`La computadora eligio: ${jugadasComputadora[1]}.`);
+        console.log(`El usuario eligio: ${jugadasUsuario[1]}.`);
+        console.log(`El resultado fue: ${resultadoGanador}.`);
+        // console.log(jugadasUsuario)
+        // console.log(jugadasComputadora);
+        let primerResultado = determinarGanador(jugadasUsuario[0], jugadasComputadora[0]);
+        let segundoResultado = determinarGanador(jugadasUsuario[1], jugadasComputadora[1]);
+        console.log('El resultado de la primer jugada fue: ' + primerResultado + '.');
+        console.log('El resultado de la segunda jugada fue: ' + segundoResultado + '.');
+        if((primerResultado === 'Gana la computadora' && segundoResultado === 'Empate') || (primerResultado === 'Empate' && segundoResultado === 'Gana la computadora') || (primerResultado === 'Gana la computadora' && segundoResultado === 'Gana la computadora')) {
+            console.log('El resultado final es: Gana la COMPUTADORA!');
+        } else if ((primerResultado === 'Gana el usuario' && segundoResultado === 'Empate') || (primerResultado === 'Empate' && segundoResultado === 'Gana el usuario') || (primerResultado === 'Gana el usuario' && segundoResultado === 'Gana el usuario')) {
+            console.log('El resultado final es: Gana el USUARIO!');
+        } else {
+            console.log('El resultado final es EMPATE!')
+        }
+    };  
+};
 
 let dosRondas = dosJugadas(jugadas);
 
-function tresJugadas() {
+function tresJugadas(jugadas) {
+    let jugadasComputadora = [];
+    let jugadasUsuario = [];
+    if(jugadas === 3) {
+        jugadasComputadora.push(jugadaComputadora);
+        jugadasUsuario.push(jugadaUsuario);
+        jugadasComputadora.push(obtenerJugadaComputadora());
+        jugadasUsuario.push(obtenerJugadaUsuario());
+        mensajeResultado(jugadasComputadora[1], jugadasUsuario[1], determinarGanador(jugadasUsuario[1], jugadasComputadora[1]))
+        jugadasComputadora.push(obtenerJugadaComputadora());
+        jugadasUsuario.push(obtenerJugadaUsuario());
+        mensajeResultado(jugadasComputadora[2], jugadasUsuario[2], determinarGanador(jugadasUsuario[2], jugadasComputadora[2]))
+        // console.log(jugadasUsuario)
+        // console.log(jugadasComputadora);
+        let primerResultado = determinarGanador(jugadasUsuario[0], jugadasComputadora[0]);
+        let segundoResultado = determinarGanador(jugadasUsuario[1], jugadasComputadora[1]);
+        let tercerResultado = determinarGanador(jugadasUsuario[2], jugadasComputadora[2]);
+        console.log('El resultado de la primer jugada fue: ' + primerResultado + '.');
+        console.log('El resultado de la segunda jugada fue: ' + segundoResultado + '.');
+        console.log('El resultado de la tercer jugada fue: ' + tercerResultado + '.');
+        // FALTA LA ULTIMA PARTE EN DONDE SE DETERMINA GANADOR
+    };  
+};
 
-}
+let tresRondas = tresJugadas(jugadas);

@@ -15,7 +15,7 @@ function obtenerJugadaComputadora() {
     }
 };
 
-// Funcion que solicita al usuario ingresar manualmente entre piedra, papel y tijera.
+// Funcion que solicita al usuario ingresar manualmente entre piedra, papel y tijera. Si ingresa algo diferente no lo toma.
 function obtenerJugadaUsuario() {
     let jugadaUsuario = '';
     do {
@@ -52,11 +52,12 @@ function determinarGanador(jugadaUsuario, jugadaComputadora) {
         }
 };
 
+// Llamado a las funciones
 let jugadaComputadora = obtenerJugadaComputadora();
 let jugadaUsuario = obtenerJugadaUsuario();
 let resultadoGanador = determinarGanador(jugadaUsuario, jugadaComputadora);
 
-
+// Mensaje que imprime en consola
 console.log(`La computadora eligio: ${jugadaComputadora}.`);
 console.log(`El usuario eligio: ${jugadaUsuario}.`);
 console.log(`El resultado fue: ${resultadoGanador}.`);
