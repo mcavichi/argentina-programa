@@ -38,7 +38,7 @@ function cantidadDeJugadas() {
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
-// Funcion que de acuerdo al numero que se obtenga de la funcion anterior asociada un tipo de jugada.
+// Funcion que de acuerdo al numero que se obtenga de la funcion anterior asocia un tipo de jugada.
 function obtenerJugadaComputadora() {
     let jugadaComputadora = getRandomInt();
     if (jugadaComputadora === 0) {
@@ -89,7 +89,7 @@ function determinarGanador(jugadaUsuario, jugadaComputadora) {
         }
 };
 
-// Funcon que imprime por consula resultados.
+// Funcion que imprime por consula resultados.
 function mensajeResultado(jugadaComputadora, jugadaUsuario, resultadoGanador) {
     console.log(`La computadora eligio: ${jugadaComputadora}.`);
     console.log(`El usuario eligio: ${jugadaUsuario}.`);
@@ -166,7 +166,24 @@ function tresJugadas(jugadas) {
         console.log('El resultado de la primer jugada fue: ' + primerResultado + '.');
         console.log('El resultado de la segunda jugada fue: ' + segundoResultado + '.');
         console.log('El resultado de la tercer jugada fue: ' + tercerResultado + '.');
-        // FALTA LA ULTIMA PARTE EN DONDE SE DETERMINA GANADOR
+        // A partir de aca se determina al ganador.
+        let resultadosFinales =[];
+        resultadosFinales.push(primerResultado, segundoResultado, tercerResultado);
+        let filtrando = resultadosFinales.filter(e => e.includes(('Gana el usuario')))
+        let filtrando2 = resultadosFinales.filter(e => e.includes(('Gana la computadora')))
+        let  filtrando3 = resultadosFinales.filter(e => e.includes(('Empate')))
+        // console.log(filtrando);
+        // console.log(filtrando2);
+        // console.log(filtrando3);
+        if((filtrando.length === 2) || (filtrando.length === 1 && filtrando3.length ===2) || (filtrando.length === 3)) {
+            console.log('El resultado final es GANA EL USUARIO')
+        } else if((filtrando2.length ===2) || (filtrando2.length === 1 && filtrando3.length === 2) || (filtrando2.length === 3)) {
+            console.log('El resultado final es GANA LA COMPUTADORA.')
+        } else if(filtrando.length === 1 && filtrando2.length === 1 && filtrando3.length === 1) {
+            console.log('El resultado final es EMPATE.')
+        } else{
+            console.log('El resultado final es EMPATE.')
+        };
     };  
 };
 
